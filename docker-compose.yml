@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  dynamo:
+    # custom container name
+    container_name: film-tracker-local-dynamodb
+    # image to download and use
+    image: amazon/dynamodb-local
+    # refers to the top-level networks key
+    networks:
+      - backend
+    ports:
+      - "8000:8000"
+    # create a persistent volume for data to be stored in
+    volumes:
+      - dynamodata:/home/dynamodblocal
+    working_dir: /home/dynamodblocal
+    # start the database
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ."
+
+networks:
+  backend:
+    name: film-tracker-backend
+
+volumes:
+  dynamodata: {}

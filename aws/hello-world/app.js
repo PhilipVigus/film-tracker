@@ -1,3 +1,5 @@
+import { DynamoDB, Endpoint } from 'aws-sdk';
+
 // const axios = require('axios')
 // const url = 'http://checkip.amazonaws.com/';
 let response;
@@ -15,13 +17,39 @@ let response;
  * 
  */
 exports.lambdaHandler = async (event, context) => {
+    const dbConfig = {
+        "apiVersion": "2012-08-10",
+        "accessKeyId": "1234",
+        "secretAccessKey": "1234",
+        "region":"eu-west-2",
+        "endpoint": "http://172.18.0.1:8000"
+    };
+
+    const testTableParams = {
+        TableName: "testTable",
+        KeySchema: [
+          {
+            AttributeName: "id",
+            KeyType: "HASH"
+          }
+        ],
+        AttributeDefinitions: [
+          {
+            AttributeName: "id",
+            AttributeType: "S"
+          }
+        ],
+        BillingMode: "PAY_PER_REQUEST"
+    };
+
     try {
-        // const ret = await axios(url);
+        const db = new DynamoDB(dbConfig);
+        await db.createTable(testTableParams).promise();
+        await db.deleteTable({ TableName: "testTable"}).promise();
         response = {
             'statusCode': 200,
             'body': JSON.stringify({
                 message: 'hello world',
-                // location: ret.data.trim()
             })
         }
     } catch (err) {
