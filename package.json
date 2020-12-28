@@ -16,7 +16,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test:frontend": "react-scripts test",
+    "test:lambdas-interactive": "jest --clearCache && jest --runInBand ./aws --watchAll",
+    "test:lambdas-auto": "jest --clearCache && jest --runInBand ./aws",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
