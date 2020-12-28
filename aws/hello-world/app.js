@@ -22,7 +22,7 @@ exports.lambdaHandler = async (event, context) => {
         "accessKeyId": "1234",
         "secretAccessKey": "1234",
         "region":"eu-west-2",
-        "endpoint": "http://localhost:8000"
+        "endpoint": "http://172.18.0.1:8000"
     };
 
     const testTableParams = {
@@ -44,7 +44,6 @@ exports.lambdaHandler = async (event, context) => {
 
     try {
         const db = new DynamoDB(dbConfig);
-        db.endpoint = new Endpoint('http://localhost:8000');
         await db.createTable(testTableParams).promise();
         await db.deleteTable({ TableName: "testTable"}).promise();
         response = {
