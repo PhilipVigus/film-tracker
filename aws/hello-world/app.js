@@ -22,7 +22,7 @@ exports.lambdaHandler = async (event, context) => {
         "accessKeyId": "1234",
         "secretAccessKey": "1234",
         "region":"eu-west-2",
-        "endpoint": "http://172.18.0.1:8000"
+        "endpoint": "http://film-tracker-local-dynamodb:8000"
     };
 
     const testTableParams = {
