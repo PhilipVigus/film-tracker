@@ -1,0 +1,9 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "film-tracker"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-16lki3wv7pbhp"
+s3_prefix = "film-tracker"
+region = "us-east-1"
+capabilities = "CAPABILITY_IAM"
