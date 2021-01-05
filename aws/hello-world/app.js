@@ -1,4 +1,5 @@
-import { DynamoDB, Endpoint } from 'aws-sdk';
+import { DynamoDB } from 'aws-sdk';
+import getDBConfig from '../database/getDBConfig'
 
 // const axios = require('axios')
 // const url = 'http://checkip.amazonaws.com/';
@@ -17,15 +18,6 @@ let response;
  * 
  */
 exports.lambdaHandler = async (event, context) => {
-    const dbConfig = {
-        "apiVersion": "2012-08-10",
-        //"accessKeyId": "1234",
-        //"secretAccessKey": "1234",
-        "region":"eu-west-2",
-        //"endpoint": "http://film-tracker-local-dynamodb:8000",
-        //"endpoint": "https://arn:aws:dynamodb:eu-west-2:485675000042"
-    };
-
     const testTableParams = {
         TableName: "testTable",
         KeySchema: [
@@ -44,9 +36,9 @@ exports.lambdaHandler = async (event, context) => {
     };
 
     try {
-        const db = new DynamoDB(dbConfig);
+        const db = new DynamoDB(getDBConfig());
         await db.createTable(testTableParams).promise();
-        //await db.deleteTable({ TableName: "testTable"}).promise();
+        await db.deleteTable({ TableName: "testTable"}).promise();
         response = {
             'statusCode': 200,
             'body': JSON.stringify({
