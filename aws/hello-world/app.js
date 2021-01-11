@@ -1,5 +1,5 @@
 import { DynamoDB } from 'aws-sdk';
-import getDBConfig from '../database/getDBConfig'
+import { getDBConfig } from '../database/getDBConfig.js'
 
 // const axios = require('axios')
 // const url = 'http://checkip.amazonaws.com/';
